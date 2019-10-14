@@ -2,24 +2,29 @@
 # Agenda 业务需求
 ## 用户注册
 
+Command: user_register -u=username -p=password -e=email -h=phone
 注册新用户时，用户需设置一个唯一的用户名和一个密码。另外，还需登记邮箱及电话信息。
 如果注册时提供的用户名已由其他用户使用，应反馈一个适当的出错信息；成功注册后，亦应反馈一个成功注册的信息。
 
 ## 用户登录
 
+Command: user_login -u=username -p=password
 用户使用用户名和密码登录 Agenda 系统。
 用户名和密码同时正确则登录成功并反馈一个成功登录的信息。否则，登录失败并反馈一个失败登录的信息。
 
 ## 用户登出
 
+Command: logout
 已登录的用户登出系统后，只能使用用户注册和用户登录功能。
 
 ## 用户查询
 
+Command: query
 已登录的用户可以查看已注册的所有用户的用户名、邮箱及电话信息。
 
 ## 用户删除
 
+Command: delete -u=username
 已登录的用户可以删除本用户账户（即销号）。
 操作成功，需反馈一个成功注销的信息；否则，反馈一个失败注销的信息。
 删除成功则退出系统登录状态。删除后，该用户账户不再存在。
@@ -29,6 +34,7 @@
 
 ## 创建会议
 
+Command: create_meeting -t=title -p=participator -s=starttime -e=endtime
 已登录的用户可以添加一个新会议到其议程安排中。会议可以在多个已注册
 用户间举行，不允许包含未注册用户。添加会议时提供的信息应包括：
 会议主题(title)（在会议列表中具有唯一性）
@@ -40,12 +46,15 @@
 
 ## 增删会议参与者
 
+Command: add_participator -t=title -u=username
+Command: delete_participator -t=title -u=username
 已登录的用户可以向 自己发起的某一会议增加/删除 参与者 。
 增加参与者时需要做 时间重叠 判断（允许仅有端点重叠的情况）。
 删除会议参与者后，若因此造成会议 参与者 人数为0，则会议也将被删除。
 
 ## 查询会议
 
+Command: query_meeting -s=starttime -e=endtime
 已登录的用户可以查询自己的议程在某一时间段(time interval)内的所有会议安排。
 用户给出所关注时间段的起始时间和终止时间，返回该用户议程中在指定时间范围内找到的所有会议安排的列表。
 在列表中给出每一会议的起始时间、终止时间、主题、以及发起者和参与者。
@@ -53,15 +62,18 @@
 
 ## 取消会议
 
+Command: meeting_cancel -t=title
 已登录的用户可以取消 自己发起 的某一会议安排。
 取消会议时，需提供唯一标识：会议主题（title）。
 
 ## 退出会议
 
+Command: meeting_quit -t=title
 已登录的用户可以退出 自己参与 的某一会议安排。
 退出会议时，需提供一个唯一标识：会议主题（title）。若因此造成会议 参与者 人数为0，则会议也将被删除。
 
 ## 清空会议
 
+Command: clear_meeting
 已登录的用户可以清空 自己发起 的所有会议安排。
 
